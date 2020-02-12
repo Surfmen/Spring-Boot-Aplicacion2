@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 	
-	@GetMapping
+	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
 
-	@GetMapping("/userForm")
+	@GetMapping("/userform")
 	public String getUserForm() {
-		return "user-Form";
+		return "user-form/user-view";
 	}
 }
