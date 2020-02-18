@@ -1,12 +1,21 @@
 package es.peonadas.aplicacionspring.controller;
 
+
+
+import javax.validation.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import es.peonadas.aplicacionspring.entity.User;
 import es.peonadas.aplicacionspring.repository.RoleRepository;
+
 import es.peonadas.aplicacionspring.service.UserService;
 
 @Controller
@@ -23,12 +32,37 @@ public class UserController {
 		return "index";
 	}
 
-	@GetMapping("/userform")
+	@GetMapping("/userForm")
 	public String getUserForm(Model modelo) {
 		modelo.addAttribute("userForm", new User());
-		modelo.addAttribute("roles", roleRepository.findAll());
 		modelo.addAttribute("userList", userService.getAllUsers());
+		modelo.addAttribute("roles", roleRepository.findAll());
 		modelo.addAttribute("listTab","active");
+		return "user-form/user-view";
+	}
+	
+	@PostMapping("/userForm")
+	public String createUser(@Valid final @ModelAttribute("userForm")User user,final BindingResult result,final ModelMap model) {
+		if(result.hasErrors()) {
+			model.addAttribute("userForm", user);
+			model.addAttribute("formTab","active");
+		}else {
+			try {
+				//Aca tendras error porque este metodo no existe, pero lo crearemos en la siguiente seccion.
+				userService.createUser(user);
+				model.addAttribute("userForm", new User());
+				model.addAttribute("listTab","active");
+			}catch(Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("roles",roleRepository.findAll());
+			}
+			
+		}
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles",roleRepository.findAll());
 		return "user-form/user-view";
 	}
 }
