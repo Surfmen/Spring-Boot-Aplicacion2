@@ -3,6 +3,7 @@ package es.peonadas.aplicacionspring.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.validation.constraints.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,15 +28,26 @@ public class User implements Serializable{
 	@GenericGenerator(name="native",strategy="native")
 	private Long id;
 	
-	@Column 
+	@Column(length = 15) 
+	@NotBlank
+	@Size(min=5,max=15,message="No se cumple las reglas del tamano")
 	private String firstName;
-	@Column 
+	
+	@Column(length = 25)
+	@NotBlank
 	private String lastName;
-	@Column(unique = true) 
+	
+	@Column(unique = true,length = 150)
+	@Email
+	@NotBlank
 	private String email;
-	@Column(unique = true) 
+	
+	@Column(unique = true,length = 15)
+	@NotBlank
 	private String username;
-	@Column
+	
+	@Column(length = 3)
+	@NotBlank
 	private String password;
 	
 	@Transient 
@@ -47,7 +60,20 @@ public class User implements Serializable{
 	private Set<Role> roles;
 	
 	public User() {	}
-	
+		
+	public User(Long id, @NotBlank String firstName, @NotBlank String lastName, @Email @NotBlank String email,
+			@NotBlank String username, @NotBlank String password, String confirmPassword, Set<Role> roles) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.roles = roles;
+	}
+
 	public User(Long id) {
 		this.id = id;
 	}
