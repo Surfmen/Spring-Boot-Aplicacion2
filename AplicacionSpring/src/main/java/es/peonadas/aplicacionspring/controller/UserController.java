@@ -11,10 +11,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+=======
+import org.springframework.web.bind.annotation.PostMapping;
+>>>>>>> branch 'master' of https://github.com/Surfmen/Spring-Boot-Aplicacion2.git
 
 import es.peonadas.aplicacionspring.entity.User;
 import es.peonadas.aplicacionspring.repository.RoleRepository;
@@ -45,6 +49,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/userForm")
+<<<<<<< HEAD
 	public String createUser(@Valid @ModelAttribute("userForm")User user,BindingResult result,ModelMap model) {
 		if(result.hasErrors()) {
 			model.addAttribute("userForm", user);
@@ -116,5 +121,29 @@ public class UserController {
 	@GetMapping("/editUser/cancel")
 	public String cancelEditUser(ModelMap model) {
 		return "redirect:/userForm";
+=======
+	public String createUser(@Valid final @ModelAttribute("userForm")User user,final BindingResult result,final ModelMap model) {
+		if(result.hasErrors()) {
+			model.addAttribute("userForm", user);
+			model.addAttribute("formTab","active");
+		}else {
+			try {
+				//Aca tendras error porque este metodo no existe, pero lo crearemos en la siguiente seccion.
+				userService.createUser(user);
+				model.addAttribute("userForm", new User());
+				model.addAttribute("listTab","active");
+			}catch(Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("roles",roleRepository.findAll());
+			}
+			
+		}
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles",roleRepository.findAll());
+		return "user-form/user-view";
+>>>>>>> branch 'master' of https://github.com/Surfmen/Spring-Boot-Aplicacion2.git
 	}
 }

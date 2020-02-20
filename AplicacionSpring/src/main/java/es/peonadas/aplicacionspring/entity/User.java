@@ -47,6 +47,10 @@ public class User implements Serializable{
 	private String username;
 	
 	@Column(length = 3)
+<<<<<<< HEAD
+=======
+	@NotBlank
+>>>>>>> branch 'master' of https://github.com/Surfmen/Spring-Boot-Aplicacion2.git
 	private String password;
 	
 	@Transient 

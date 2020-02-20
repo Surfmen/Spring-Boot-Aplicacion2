@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	
+<<<<<<< HEAD
 	private boolean  checkPasswordValid(User user) throws Exception {
 		if(user.getConfirmPassword()==null || user.getConfirmPassword().isEmpty()) {
 			throw new Exception("Confirm Password is mandatory");
@@ -70,4 +71,20 @@ public class UserServiceImpl implements UserService{
 		to.setRoles(from.getRoles());
 	}
 	
+=======
+	private boolean  checkPasswordValid(User user) throws Exception {		
+		if(!user.getPassword().equals(user.getConfirmPassword())){
+			throw new Exception("Password and Confirm Password not equals");
+		}
+		return true;
+	}
+
+	@Override
+	public User createUser(User user) throws Exception {
+		if(checkUsernameAvailable(user) && checkPasswordValid(user)) {
+			user = userRepository.save(user);
+		}
+		return user;
+	}
+>>>>>>> branch 'master' of https://github.com/Surfmen/Spring-Boot-Aplicacion2.git
 }

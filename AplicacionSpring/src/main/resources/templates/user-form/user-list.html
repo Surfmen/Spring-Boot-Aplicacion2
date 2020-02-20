@@ -24,12 +24,19 @@
 						<td th:text="${user.lastName}"></td>
 						<td th:text="${user.username}"></td>
 						<td th:text="${user.email}"></td>
+<<<<<<< HEAD
 						<td>
 							<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i
 								class="fas fa-edit"></i></a> | <a href="#"
 							th:onclick="'javascript:confirmDelete(\''+${user.id}+'\');'"><i
 								class="fas fa-user-times"></i></a>
 						</td>
+=======
+						<td><a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i
+								class="fas fa-edit"></i></a> | <a href="#"
+							th:onclick="'javascript:confirmDelete(\''+${user.id}+'\');'"><i
+								class="fas fa-user-times"></i></a></td>
+>>>>>>> branch 'master' of https://github.com/Surfmen/Spring-Boot-Aplicacion2.git
 					</tr>
 				</tbody>
 			</table>
