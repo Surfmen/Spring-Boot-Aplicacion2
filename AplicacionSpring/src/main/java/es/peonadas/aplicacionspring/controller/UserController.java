@@ -11,10 +11,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.peonadas.aplicacionspring.entity.User;
 import es.peonadas.aplicacionspring.repository.RoleRepository;
@@ -45,6 +44,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/userForm")
+
 	public String createUser(@Valid @ModelAttribute("userForm")User user,BindingResult result,ModelMap model) {
 		if(result.hasErrors()) {
 			model.addAttribute("userForm", user);

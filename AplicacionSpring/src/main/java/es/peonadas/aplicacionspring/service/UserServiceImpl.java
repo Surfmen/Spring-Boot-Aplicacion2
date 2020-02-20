@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	
+
 	private boolean  checkPasswordValid(User user) throws Exception {
 		if(user.getConfirmPassword()==null || user.getConfirmPassword().isEmpty()) {
 			throw new Exception("Confirm Password is mandatory");
@@ -69,5 +70,5 @@ public class UserServiceImpl implements UserService{
 		to.setEmail(from.getEmail());
 		to.setRoles(from.getRoles());
 	}
-	
+
 }
