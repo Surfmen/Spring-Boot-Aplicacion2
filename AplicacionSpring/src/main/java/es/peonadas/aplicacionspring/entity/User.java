@@ -47,7 +47,6 @@ public class User implements Serializable{
 	private String username;
 	
 	@Column(length = 3)
-	@NotBlank
 	private String password;
 	
 	@Transient 
